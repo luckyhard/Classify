@@ -20,7 +20,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_login, container, false);
-        login = (Button)root.findViewById(R.id.login);
+        login = (Button)root.findViewById(R.id.loginBtn);
         login.setOnClickListener(this);
         return root;
     }
@@ -28,12 +28,12 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.login:
+            case R.id.loginBtn:
                 LoginClick();
                 break;
-            case R.id.regist:
-                RegistClick();
-                break;
+//            case R.id.loginBtn:
+//                RegistClick();
+//                break;
         }
     }
     //登录事件

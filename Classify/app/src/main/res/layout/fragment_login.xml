@@ -1,21 +1,110 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/fragment_login"
+    android:background="@drawable/surf"
     tools:context="com.haonan.fragment.LoginFragment">
 
 
-    <Button
-        android:text="注册"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/regist" />
+    <ImageView
+        android:layout_width="132dp"
+        android:layout_height="132dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="68dp"
+        app:srcCompat="@drawable/loginLogo"
+        android:id="@+id/imageView" />
 
-    <Button
-        android:text="登录"
+    <LinearLayout
+        android:id="@+id/LoginLLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/login_input"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/userLLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/loginIdEt"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:ems="10"
+                    android:hint="@string/id"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:layout_marginTop="30dp"
+                    android:singleLine="true"
+                    android:textColorHint="#999999"
+                    android:textSize="18sp"/>
+
+                <requestFocus/>
+                <ImageView
+                    android:id="@+id/loginMourUser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp"
+                    android:layout_marginTop="25dp"
+                    android:src="@drawable/login_more_up"/>
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#CACDD1"/>
+
+            <EditText
+                android:id="@+id/loginPwdEt"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@null"
+                android:hint="@string/pwd"
+                android:paddingLeft="15dp"
+                android:paddingRight="0dp"
+                android:singleLine="true"
+                android:textColorHint="#999999"
+                android:textSize="18sp"/>
+        </LinearLayout>
+        <Button
+            android:id="@+id/loginBtn"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/loginBtnText"
+            android:textColor="#FFFFFF"
+            android:textSize="19sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/loginRegist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/login" />
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="15dp"
+        android:text="@string/regist"
+        android:textColor="#0079FF"
+        android:textSize="18sp"/>
 </LinearLayout>
