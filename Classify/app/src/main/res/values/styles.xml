@@ -6,6 +6,12 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <!-- 窗体的背景色-->
+        <item name="android:windowBackground">@android:color/white</item>
+        <!--窗体无标题栏-->
+        <item name="windowNoTitle">true</item>
+        <!--取消状态栏,也就是全屏显示-->
+        <item name="android:windowFullscreen">true</item>
     </style>
 
     <style name="loginingDlg" parent="@android:style/Theme.Dialog">

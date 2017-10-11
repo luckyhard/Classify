@@ -33,6 +33,8 @@ import android.widget.TextView;
 import com.haonan.entity.User;
 import com.haonan.util.SaveUser;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 import haonan.classify.LoginActivity;
@@ -50,6 +52,7 @@ public class LoginFragment extends Fragment implements  PopupWindow.OnDismissLis
     private EditText pwdEt;         //密码编辑框
     private ImageView moreUser;     //显示更多用户图标
     private Button loginBtn;        //登录按钮
+    private TextView registTV;       //注册tv
     private ImageView moreUserView; //弹出下拉弹出框的按钮
     private String Id;
     private String pwd;
@@ -89,11 +92,7 @@ public class LoginFragment extends Fragment implements  PopupWindow.OnDismissLis
         return root;
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
 
-    }
 
     class MyAdapter extends ArrayAdapter<User>{
         public MyAdapter(ArrayList<User> users) {
@@ -158,23 +157,7 @@ public class LoginFragment extends Fragment implements  PopupWindow.OnDismissLis
             public void afterTextChanged(Editable s) {
             }
         });
-        //登录事件
-        loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i(TAG,"****************************");
-                ShowLoginingDialog();
-                LoginClick();
-            }
-        });
 
-        //下拉事件
-        moreUserView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MoreUserClick();
-            }
-        });
     }
 
     //初始化各个控件
@@ -184,10 +167,37 @@ public class LoginFragment extends Fragment implements  PopupWindow.OnDismissLis
         moreUser = (ImageView)root.findViewById(R.id.loginMourUser);
         loginBtn = (Button)root.findViewById(R.id.loginBtn);
         moreUserView = (ImageView) root.findViewById(R.id.loginMourUser);
+        registTV = (TextView)root.findViewById(R.id.loginRegist);
         translate = AnimationUtils.loadAnimation(getActivity(), R.anim.translate);
         loginLL = (LinearLayout) root.findViewById(R.id.LoginLLayout);
         IdLL = (LinearLayout) root.findViewById(R.id.userLLayout);
+
         initLoginingDialog(root);
+
+        //登录事件添加
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShowLoginingDialog();
+                LoginClick();
+            }
+        });
+
+        //下拉事件添加
+        moreUserView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MoreUserClick();
+            }
+        });
+
+        //注册事件添加
+        registTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RegistClick();
+            }
+        });
     }
 
     //设置Dialog
@@ -252,7 +262,6 @@ public class LoginFragment extends Fragment implements  PopupWindow.OnDismissLis
 
     //登录事件
     public void LoginClick(){
-        System.out.print("123123**************************8");
         getFragmentManager().beginTransaction()
                 .replace(R.id.activity_login, new MainFragment())
                 .commit();
@@ -260,29 +269,15 @@ public class LoginFragment extends Fragment implements  PopupWindow.OnDismissLis
     //注册事件
     public void RegistClick() {
         getFragmentManager().beginTransaction()
-                .replace(R.id.activity_login, new MainFragment())
+                .replace(R.id.activity_login, new RegistFragment())
                 .commit();
     }
-
-//    @Override
-//    public void onClick(View v) {
-//        switch (v.getId()){
-//            case R.id.loginBtn:
-//                LoginClick();
-//                ShowLoginingDialog();
-//                break;
-//
-//            case R.id.loginMourUser:
-//                MoreUserClick();
-//                break;
-//        }
-//    }
 
     @Override
     public void onDismiss() {
         moreUser.setImageResource(R.drawable.login_more_up);
     }
-
+    //下拉事件
     public void MoreUserClick() {
         if(pop == null) {
             InitPop();
