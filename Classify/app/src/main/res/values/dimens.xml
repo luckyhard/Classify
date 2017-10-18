@@ -6,4 +6,6 @@
     <dimen name="loginingdlg_height">42dp</dimen>
     <dimen name="loginingdlg_lr_margin">10dp</dimen>
     <dimen name="loginingdlg_top_margin">20dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="appbar_padding_top">8dp</dimen>
 </resources>

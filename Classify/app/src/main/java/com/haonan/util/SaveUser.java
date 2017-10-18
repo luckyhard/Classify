@@ -42,7 +42,10 @@ public class SaveUser {
             writer = new OutputStreamWriter(out);
             Log.i(TAG, "json的值：" + jsonArray.toString());
             writer.write(jsonArray.toString());
-        }finally {
+        }catch (Exception e){
+            Log.i(TAG,"保存错误");
+        }
+        finally {
             if (writer != null){
                 writer.close();
             }

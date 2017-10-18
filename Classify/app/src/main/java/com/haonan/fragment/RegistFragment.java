@@ -16,6 +16,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.haonan.entity.Regist;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,6 +33,7 @@ public class RegistFragment extends Fragment implements View.OnClickListener {
     private EditText etAddress;
     private EditText etMajor;
     private AppCompatButton btnRegist;
+    private Regist regist;
 
 
     public RegistFragment() {
@@ -59,9 +62,11 @@ public class RegistFragment extends Fragment implements View.OnClickListener {
         etAddress = (EditText) root.findViewById(R.id.etAddress);
         //专业的edit
         etMajor = (EditText) root.findViewById(R.id.etMajor);
-
+        //注册信息类
+        regist = new Regist();
         btnRegist = (AppCompatButton) root.findViewById(R.id.btnRegist);
         btnRegist.setOnClickListener(this);
+
     }
 
     public boolean Reg(String reg, String str){
@@ -96,7 +101,7 @@ public class RegistFragment extends Fragment implements View.OnClickListener {
                         tilName.setError("5-16位字母、数字和下划线");
                         tilName.setErrorEnabled(true);
                         check[0] = false;
-                    }else{check[0] = true;}
+                    }else{check[0] = true;regist.setName(name);}
                 }
             }
         });
@@ -135,7 +140,7 @@ public class RegistFragment extends Fragment implements View.OnClickListener {
                         tilConfirPwd.setError("密码不一致");
                         tilConfirPwd.setErrorEnabled(true);
                         check[0] = false;
-                    }else {check[0] = true;}
+                    }else {check[0] = true;regist.setPwd(pwd);}
                     Log.i(TAG,"ConfirmPwd失去焦点");
                 }
             }
@@ -158,7 +163,7 @@ public class RegistFragment extends Fragment implements View.OnClickListener {
                         tilEmail.setErrorEnabled(true);
                         Log.i(TAG,email);
                         check[0] = false;
-                    }else {check[0] = true;}
+                    }else {check[0] = true;regist.setEmail(email);}
                 }
             }
         });
@@ -180,7 +185,7 @@ public class RegistFragment extends Fragment implements View.OnClickListener {
                         tilMajor.setErrorEnabled(true);
                         Log.i(TAG,major);
                         check[0] = false;
-                    }else {check[0] = true;}
+                    }else {check[0] = true;regist.setMajor(major);}
                 }
             }
         });
@@ -202,7 +207,7 @@ public class RegistFragment extends Fragment implements View.OnClickListener {
                         tilAddress.setErrorEnabled(true);
                         Log.i(TAG,address);
                         check[0] = false;
-                    }else {check[0] = true;}
+                    }else {check[0] = true;regist.setAddress(address);}
                 }
             }
         });
@@ -214,13 +219,17 @@ public class RegistFragment extends Fragment implements View.OnClickListener {
         if(!Check(root)){
             RegistFailed();
         }else {
-            getFragmentManager().beginTransaction()
-                    .replace(R.id.activity_login, new LoginFragment())
-                    .commit();
-
+            LoginFragment loginFragment = new LoginFragment();
             //将注册信息上传到数据库
 
             //将邮箱和密码传递到登录fragment
+            Bundle u = new Bundle();
+            u.putString("email",regist.getEmail());
+            u.putString("pwd",regist.getPwd());
+            loginFragment.setArguments(u);
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.activity_login, loginFragment)
+                    .commit();
         }
     }
 

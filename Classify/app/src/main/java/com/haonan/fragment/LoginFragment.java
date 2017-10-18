@@ -2,8 +2,10 @@ package com.haonan.fragment;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -38,6 +40,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 
 import haonan.classify.LoginActivity;
+import haonan.classify.MainActivity;
 import haonan.classify.R;
 
 
@@ -69,8 +72,15 @@ public class LoginFragment extends Fragment implements  PopupWindow.OnDismissLis
         View root = inflater.inflate(R.layout.fragment_login, container, false);
         InitView(root);
         loginLL.startAnimation(translate);
+        //注册成功之后自动填充email和密码
+        if(getArguments() != null){
+            String name = getArguments().getString("email");
+            String pwd = getArguments().getString("pwd");
+            IdEt.setText(name);
+            pwdEt.setText(pwd);
+        }
+        //历史用户查找
         users = SaveUser.getUserList(getActivity());
-
         if(users.size() > 0){
             IdEt.setText(users.get(0).getId());
             pwdEt.setText(users.get(0).getPwd());
@@ -262,13 +272,28 @@ public class LoginFragment extends Fragment implements  PopupWindow.OnDismissLis
 
     //登录事件
     public void LoginClick(){
-        getFragmentManager().beginTransaction()
-                .replace(R.id.activity_login, new MainFragment())
-                .commit();
+//        getFragmentManager().beginTransaction()
+//                .addToBackStack(null)
+//                .replace(R.id.activity_login, new MainFragment())
+//                .commit();
+        startActivity(new Intent(getActivity(), MainActivity.class));
+        String name = IdEt.getText().toString();
+        String pwd = pwdEt.getText().toString();
+
+        User user = new User(name,pwd);
+        //需要从数据库查询用户名密码,返回结果正确则保存用户
+        users.add(user);
+        try {
+            SaveUser.SaveUserList(getActivity(),users);
+        } catch (Exception e) {
+           Log.i(TAG,"用户列表保存出错");
+        }
+        CloseLoginingDialog();
     }
     //注册事件
     public void RegistClick() {
         getFragmentManager().beginTransaction()
+                .addToBackStack(null)
                 .replace(R.id.activity_login, new RegistFragment())
                 .commit();
     }
@@ -289,13 +314,13 @@ public class LoginFragment extends Fragment implements  PopupWindow.OnDismissLis
         }
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        try {
-            SaveUser.SaveUserList(getActivity(), users);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    @Override
+//    public void onPause() {
+//        super.onPause();
+//        try {
+//            SaveUser.SaveUserList(getActivity(), users);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 }
